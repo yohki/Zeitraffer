@@ -116,7 +116,7 @@ BOOL _abortFlag = NO;
     CGImageSourceRef imgSrc = CGImageSourceCreateWithURL((__bridge CFURLRef)url, NULL);
     // Create an image from image source
     CGImageRef image = CGImageSourceCreateImageAtIndex(imgSrc, 0, NULL);
-    CGContextDrawImage(context, CGRectMake(0, 0, CGImageGetWidth(image), CGImageGetHeight(image)), image);
+    CGContextDrawImage(context, CGRectMake(0, 0, size.width, size.height), image);
     
     CGColorSpaceRelease(rgbColorSpace);
     CGContextRelease(context);

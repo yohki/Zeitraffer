@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		406C9D5D16352EEC00F916EB /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 406C9D5B16352EEC00F916EB /* Localizable.strings */; };
 		406C9D6016353E0000F916EB /* zeitraffer.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 406C9D5F16353E0000F916EB /* zeitraffer.iconset */; };
+		406C9D6B16355E9500F916EB /* ZRExportSettingsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 406C9D6D16355E9500F916EB /* ZRExportSettingsView.xib */; };
 		407DB51C1627F16F0075D935 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 407DB51B1627F16F0075D935 /* Cocoa.framework */; };
 		407DB5261627F16F0075D935 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 407DB5241627F16F0075D935 /* InfoPlist.strings */; };
 		407DB5281627F16F0075D935 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 407DB5271627F16F0075D935 /* main.m */; };
@@ -38,6 +39,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		403AAD84163579020037D049 /* ja */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ja; path = ja.lproj/ZRExportSettingsView.xib; sourceTree = "<group>"; };
 		406C9D561634FB8D00F916EB /* Zeitraffer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Zeitraffer.entitlements; sourceTree = "<group>"; };
 		406C9D5716351C4900F916EB /* ja */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ja; path = ja.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		406C9D5816351C4900F916EB /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -46,6 +48,7 @@
 		406C9D5C16352EEC00F916EB /* en */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		406C9D5E16352F6300F916EB /* ja */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		406C9D5F16353E0000F916EB /* zeitraffer.iconset */ = {isa = PBXFileReference; lastKnownFileType = folder.iconset; path = zeitraffer.iconset; sourceTree = "<group>"; };
+		406C9D6C16355E9500F916EB /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ZRExportSettingsView.xib; sourceTree = "<group>"; };
 		407DB5171627F16F0075D935 /* Zeitraffer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Zeitraffer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		407DB51B1627F16F0075D935 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		407DB51E1627F16F0075D935 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -155,6 +158,7 @@
 				407DB55F1628D6F60075D935 /* ZRImageBrowserDataSource.m */,
 				407DB5651628E0DB0075D935 /* ZRImageBrowserItem.h */,
 				407DB5661628E0DB0075D935 /* ZRImageBrowserItem.m */,
+				406C9D6D16355E9500F916EB /* ZRExportSettingsView.xib */,
 				407DB5301627F16F0075D935 /* MainMenu.xib */,
 				407DB5221627F16F0075D935 /* Supporting Files */,
 			);
@@ -271,6 +275,7 @@
 				407DB5321627F16F0075D935 /* MainMenu.xib in Resources */,
 				406C9D5D16352EEC00F916EB /* Localizable.strings in Resources */,
 				406C9D6016353E0000F916EB /* zeitraffer.iconset in Resources */,
+				406C9D6B16355E9500F916EB /* ZRExportSettingsView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -339,6 +344,15 @@
 				406C9D5E16352F6300F916EB /* ja */,
 			);
 			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		406C9D6D16355E9500F916EB /* ZRExportSettingsView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				406C9D6C16355E9500F916EB /* en */,
+				403AAD84163579020037D049 /* ja */,
+			);
+			name = ZRExportSettingsView.xib;
 			sourceTree = "<group>";
 		};
 		407DB5241627F16F0075D935 /* InfoPlist.strings */ = {

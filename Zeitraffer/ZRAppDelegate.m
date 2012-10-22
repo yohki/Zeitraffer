@@ -21,6 +21,9 @@ const NSInteger kSortOrderFileNameDescending = 1;
 const NSInteger kSortOrderDateCreatedAscending = 2;
 const NSInteger kSortOrderDateCreatedDescending = 3;
 
+const NSInteger kFormatQuickTime = 0;
+const NSInteger kFormatMPEG4 = 1;
+
 CGSize _outputSize;
 BOOL _exportInProgress = NO;
 
@@ -58,10 +61,11 @@ BOOL _exportInProgress = NO;
     self.progressBar.usesThreadedAnimation = YES;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateProgressBar:) name:@"ProgressUpdate" object:nil];
     
-    _outputSize = CGSizeMake(360, 240);
-    
+    _outputSize = CGSizeMake(360, 240);    
     _sortOrder = kSortOrderFileNameAscending;
-    [self.fps setIntValue:kDefaultFPS];
+
+    [NSBundle loadNibNamed:@"ZRExportSettingsView" owner:self];
+    _savePanel = [NSSavePanel savePanel];
 }
 
 - (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)sender {
@@ -84,41 +88,75 @@ BOOL _exportInProgress = NO;
 
 #pragma mark NSButton delegate
 
+- (IBAction)formatSelected:(id)sender {
+    NSPopUpButton *popup = (NSPopUpButton *)sender;
+    NSInteger index = [popup indexOfSelectedItem];
+    if (index == kFormatQuickTime) {
+        [_savePanel setAllowedFileTypes:[NSArray arrayWithObject:AVFileTypeQuickTimeMovie]];
+    } else if (index == kFormatMPEG4) {
+        [_savePanel setAllowedFileTypes:[NSArray arrayWithObject:AVFileTypeMPEG4]];
+    }
+}
+
 - (IBAction)exportButtonClicked:(id)sender {
     if (_exportInProgress) {
         self.exportButton.title = NSLocalizedString(@"ExportButtonLabel", @"Label for export button");
         [[ZRMovieEncoder encoder] abortExport];
     } else {
-        // Validate FPS value
-        float fps = [self.fps floatValue];
-        if (fps <= 0) {
-            [self.fps setIntValue:kDefaultFPS];
-            fps = kDefaultFPS;
-        }
-
-        NSSavePanel *panel = [NSSavePanel savePanel];
-        [panel setTitle:NSLocalizedString(@"SavePanelTitle", @"Title for save panel")];
-        [panel setNameFieldStringValue:NSLocalizedString(@"DefaultFileName", @"Default file name to export")];
-        [panel setCanSelectHiddenExtension:YES];
-        [panel setCanCreateDirectories:NO];
-        [panel setAllowedFileTypes:[NSArray arrayWithObject:_outFileType]];
+        [_savePanel setTitle:NSLocalizedString(@"SavePanelTitle", @"Title for save panel")];
+        [_savePanel setNameFieldStringValue:NSLocalizedString(@"DefaultFileName", @"Default file name to export")];
+        [_savePanel setCanSelectHiddenExtension:YES];
+        [_savePanel setCanCreateDirectories:NO];
+        [_savePanel setAllowedFileTypes:[NSArray arrayWithObject:_outFileType]];
         
-        NSInteger result = [panel runModal];
+        // setup accessory view
+        [self.optionFPS setFloatValue:kDefaultFPS];
+        [self.optionWidth setFloatValue:_outputSize.width];
+        [self.optionHeight setFloatValue:_outputSize.height];
+        
+        [_savePanel setAccessoryView:self.accessoryView];
+             
+        NSInteger result = [_savePanel runModal];
         if (result != NSFileHandlingPanelOKButton) {
             return;
         }
 
-        if ([[NSFileManager defaultManager] fileExistsAtPath:panel.URL.path]) {
+        // validate values
+        float fps = [self.optionFPS floatValue];
+        if (fps <= 0) {
+            [self.optionFPS setIntValue:kDefaultFPS];
+            fps = kDefaultFPS;
+        }
+        float width = [self.optionWidth floatValue];
+        if (0 < width) {
+            _outputSize.width = width;
+        }
+        float height = [self.optionHeight floatValue];
+        if (0 < height) {
+            _outputSize.height = height;
+        }
+        NSInteger index = self.optionFormat.indexOfSelectedItem;
+        if (index == kFormatQuickTime) {
+            _outFileType = AVFileTypeQuickTimeMovie;
+        } else if (index == kFormatMPEG4) {
+            _outFileType = AVFileTypeMPEG4;
+        }
+        
+        // delete if overwrite
+        if ([[NSFileManager defaultManager] fileExistsAtPath:_savePanel.URL.path]) {
             NSError *error;
-            [[NSFileManager defaultManager] removeItemAtURL:panel.URL error:&error];
+            [[NSFileManager defaultManager] removeItemAtURL:_savePanel.URL error:&error];
             if (error) {
                 NSAlert *alert = [NSAlert alertWithError:error];
                 [alert runModal];
                 return;
             }
         }
-        [[ZRMovieEncoder encoder] exportMovieToURL:panel.URL withFileType:_outFileType size:_outputSize fps:fps data:_imageSource.imageEntries];
+        
+        [[ZRMovieEncoder encoder] exportMovieToURL:_savePanel.URL withFileType:_outFileType size:_outputSize fps:fps data:_imageSource.imageEntries];
         self.exportButton.title = NSLocalizedString(@"CancelButtonLabel", @"Label for cancel button");
+        [self.picker setEnabled:NO];
+        [self.orderPopup setEnabled:NO];
         _exportInProgress = YES;
     }
 }
@@ -153,6 +191,8 @@ BOOL _exportInProgress = NO;
             [self.progressBar setDoubleValue:0];
             [self.status setStringValue:NSLocalizedString(@"MessageDone", @"Message when done")];
             self.exportButton.title = NSLocalizedString(@"ExportButtonLabel", nil);
+            [self.picker setEnabled:YES];
+            [self.orderPopup setEnabled:YES];
             _exportInProgress = NO;
         } else {
             [self.progressBar setDoubleValue:[value doubleValue]];
@@ -177,10 +217,11 @@ BOOL _exportInProgress = NO;
         [_imageSource setCurrentImageDirectory:url recursive:NO];
         [self sortItems];
         [self.browserView reloadData];
-        [self.browserView setSelectionIndexes:[NSIndexSet indexSetWithIndex:0] byExtendingSelection:NO];
         if (_imageSource.imageEntries.count == 0) {
+            [self.browserView setSelectionIndexes:nil byExtendingSelection:NO];
             [self.exportButton setEnabled:NO];
         } else {
+            [self.browserView setSelectionIndexes:[NSIndexSet indexSetWithIndex:0] byExtendingSelection:NO];
             [self.exportButton setEnabled:YES];
         }
         _outputSize.width = self.imageView.imageSize.width;
@@ -202,7 +243,9 @@ BOOL _exportInProgress = NO;
 
 - (void)imageBrowserSelectionDidChange:(IKImageBrowserView *)browser {
     NSIndexSet *selection = browser.selectionIndexes;
-    if (selection.count == 1) {
+    if (selection.count == 0) {
+        [self.imageView setImageWithURL:nil];
+    } else if (selection.count == 1) {
         IKImageBrowserCell *cell = [self.browserView cellForItemAtIndex:selection.firstIndex];
         ZRImageBrowserItem *item = (ZRImageBrowserItem *)cell.representedItem;
         [self.imageView setImageWithURL:item.url];
