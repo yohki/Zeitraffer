@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		406C9D5D16352EEC00F916EB /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 406C9D5B16352EEC00F916EB /* Localizable.strings */; };
+		406C9D6016353E0000F916EB /* zeitraffer.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 406C9D5F16353E0000F916EB /* zeitraffer.iconset */; };
 		407DB51C1627F16F0075D935 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 407DB51B1627F16F0075D935 /* Cocoa.framework */; };
 		407DB5261627F16F0075D935 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 407DB5241627F16F0075D935 /* InfoPlist.strings */; };
 		407DB5281627F16F0075D935 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 407DB5271627F16F0075D935 /* main.m */; };
@@ -23,7 +25,6 @@
 		407DB579162939170075D935 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 407DB578162939170075D935 /* AVFoundation.framework */; };
 		407DB57C1629399A0075D935 /* ZRMovieEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 407DB57B1629399A0075D935 /* ZRMovieEncoder.m */; };
 		407DB582162A88E60075D935 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 407DB581162A88E60075D935 /* CoreMedia.framework */; };
-		40D41B081634CF5E001C6AAD /* zeitraffer.icns in Resources */ = {isa = PBXBuildFile; fileRef = 40D41B071634CF5E001C6AAD /* zeitraffer.icns */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +39,13 @@
 
 /* Begin PBXFileReference section */
 		406C9D561634FB8D00F916EB /* Zeitraffer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Zeitraffer.entitlements; sourceTree = "<group>"; };
+		406C9D5716351C4900F916EB /* ja */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ja; path = ja.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		406C9D5816351C4900F916EB /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		406C9D5916351C4900F916EB /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = ja; path = ja.lproj/Credits.rtf; sourceTree = "<group>"; };
+		406C9D5A16351C4900F916EB /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		406C9D5C16352EEC00F916EB /* en */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		406C9D5E16352F6300F916EB /* ja */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
+		406C9D5F16353E0000F916EB /* zeitraffer.iconset */ = {isa = PBXFileReference; lastKnownFileType = folder.iconset; path = zeitraffer.iconset; sourceTree = "<group>"; };
 		407DB5171627F16F0075D935 /* Zeitraffer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Zeitraffer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		407DB51B1627F16F0075D935 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		407DB51E1627F16F0075D935 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -66,7 +74,6 @@
 		407DB57A1629399A0075D935 /* ZRMovieEncoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZRMovieEncoder.h; sourceTree = "<group>"; };
 		407DB57B1629399A0075D935 /* ZRMovieEncoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZRMovieEncoder.m; sourceTree = "<group>"; };
 		407DB581162A88E60075D935 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
-		40D41B071634CF5E001C6AAD /* zeitraffer.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = zeitraffer.icns; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,7 +103,7 @@
 		407DB50C1627F16F0075D935 = {
 			isa = PBXGroup;
 			children = (
-				40D41B071634CF5E001C6AAD /* zeitraffer.icns */,
+				406C9D5F16353E0000F916EB /* zeitraffer.iconset */,
 				407DB5211627F16F0075D935 /* Zeitraffer */,
 				407DB53E1627F16F0075D935 /* ZeitrafferTests */,
 				407DB51A1627F16F0075D935 /* Frameworks */,
@@ -157,6 +164,7 @@
 		407DB5221627F16F0075D935 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				406C9D5B16352EEC00F916EB /* Localizable.strings */,
 				407DB5231627F16F0075D935 /* Zeitraffer-Info.plist */,
 				407DB5241627F16F0075D935 /* InfoPlist.strings */,
 				407DB5271627F16F0075D935 /* main.m */,
@@ -240,6 +248,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				ja,
 			);
 			mainGroup = 407DB50C1627F16F0075D935;
 			productRefGroup = 407DB5181627F16F0075D935 /* Products */;
@@ -260,7 +269,8 @@
 				407DB5261627F16F0075D935 /* InfoPlist.strings in Resources */,
 				407DB52C1627F16F0075D935 /* Credits.rtf in Resources */,
 				407DB5321627F16F0075D935 /* MainMenu.xib in Resources */,
-				40D41B081634CF5E001C6AAD /* zeitraffer.icns in Resources */,
+				406C9D5D16352EEC00F916EB /* Localizable.strings in Resources */,
+				406C9D6016353E0000F916EB /* zeitraffer.iconset in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -322,10 +332,20 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		406C9D5B16352EEC00F916EB /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				406C9D5C16352EEC00F916EB /* en */,
+				406C9D5E16352F6300F916EB /* ja */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		407DB5241627F16F0075D935 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
 				407DB5251627F16F0075D935 /* en */,
+				406C9D5816351C4900F916EB /* ja */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -334,6 +354,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				407DB52B1627F16F0075D935 /* en */,
+				406C9D5916351C4900F916EB /* ja */,
 			);
 			name = Credits.rtf;
 			sourceTree = "<group>";
@@ -342,6 +363,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				407DB5311627F16F0075D935 /* en */,
+				406C9D5716351C4900F916EB /* ja */,
 			);
 			name = MainMenu.xib;
 			sourceTree = "<group>";
@@ -350,6 +372,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				407DB5421627F16F0075D935 /* en */,
+				406C9D5A16351C4900F916EB /* ja */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -414,13 +437,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = Zeitraffer/Zeitraffer.entitlements;
-				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_IDENTITY = "Mac Developer: Yoshihito Ohki (Q42KBSQ6LD)";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Zeitraffer/Zeitraffer-Prefix.pch";
 				INFOPLIST_FILE = "Zeitraffer/Zeitraffer-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -429,13 +453,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = Zeitraffer/Zeitraffer.entitlements;
-				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application: Yoshihito Ohki";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Zeitraffer/Zeitraffer-Prefix.pch";
 				INFOPLIST_FILE = "Zeitraffer/Zeitraffer-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "B6D883AA-60D7-46B4-8E1E-8E1D60A851A7";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

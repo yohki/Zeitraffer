@@ -55,12 +55,17 @@ BOOL _exportInProgress = NO;
     [self.browserView setValue:attributes forKey:IKImageBrowserCellsHighlightedTitleAttributesKey];
     
     self.imageView.autoresizes = YES;
+    self.progressBar.usesThreadedAnimation = YES;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateProgressBar:) name:@"ProgressUpdate" object:nil];
     
     _outputSize = CGSizeMake(360, 240);
     
     _sortOrder = kSortOrderFileNameAscending;
     [self.fps setIntValue:kDefaultFPS];
+}
+
+- (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)sender {
+    return YES;
 }
 
 - (NSURL *)selectDirectory {
@@ -81,7 +86,7 @@ BOOL _exportInProgress = NO;
 
 - (IBAction)exportButtonClicked:(id)sender {
     if (_exportInProgress) {
-        self.exportButton.title = @"Export...";
+        self.exportButton.title = NSLocalizedString(@"ExportButtonLabel", @"Label for export button");
         [[ZRMovieEncoder encoder] abortExport];
     } else {
         // Validate FPS value
@@ -92,8 +97,8 @@ BOOL _exportInProgress = NO;
         }
 
         NSSavePanel *panel = [NSSavePanel savePanel];
-        [panel setTitle:@"Choose the location to save..."];
-        [panel setNameFieldStringValue:@"Untitled"];
+        [panel setTitle:NSLocalizedString(@"SavePanelTitle", @"Title for save panel")];
+        [panel setNameFieldStringValue:NSLocalizedString(@"DefaultFileName", @"Default file name to export")];
         [panel setCanSelectHiddenExtension:YES];
         [panel setCanCreateDirectories:NO];
         [panel setAllowedFileTypes:[NSArray arrayWithObject:_outFileType]];
@@ -113,7 +118,7 @@ BOOL _exportInProgress = NO;
             }
         }
         [[ZRMovieEncoder encoder] exportMovieToURL:panel.URL withFileType:_outFileType size:_outputSize fps:fps data:_imageSource.imageEntries];
-        self.exportButton.title = @"Cancel";
+        self.exportButton.title = NSLocalizedString(@"CancelButtonLabel", @"Label for cancel button");
         _exportInProgress = YES;
     }
 }
@@ -146,12 +151,12 @@ BOOL _exportInProgress = NO;
         NSNumber *value = (NSNumber *)[notification object];
         if ([value isEqualToNumber:[NSNumber numberWithDouble:100]]) {
             [self.progressBar setDoubleValue:0];
-            [self.status setStringValue:@"Done."];
-            self.exportButton.title = @"Export...";
+            [self.status setStringValue:NSLocalizedString(@"MessageDone", @"Message when done")];
+            self.exportButton.title = NSLocalizedString(@"ExportButtonLabel", nil);
             _exportInProgress = NO;
         } else {
             [self.progressBar setDoubleValue:[value doubleValue]];
-            [self.status setStringValue:[NSString stringWithFormat:@"Now processing... (%2.0f%%)", [value doubleValue]]];
+            [self.status setStringValue:[NSString stringWithFormat:NSLocalizedString(@"MessageProgress", @"Message in progress"), [value doubleValue]]];
             
         }
         [self.progressBar displayIfNeeded];
@@ -189,8 +194,8 @@ BOOL _exportInProgress = NO;
 	[openPanel setCanChooseDirectories:YES];
 	[openPanel setCanChooseFiles:NO];
 	[openPanel setResolvesAliases:YES];
-	[openPanel setTitle:@"Choose a directory of images"];
-	[openPanel setPrompt:@"Choose"];
+	[openPanel setTitle:NSLocalizedString(@"OpenPanelTitle", @"Title for open panel")];
+	[openPanel setPrompt:NSLocalizedString(@"ChooseButtonLabel", @"Label for choose button")];
 }
 
 #pragma mark IKImageBrowserDelegate protocol
