@@ -24,9 +24,14 @@ BOOL _abortFlag = NO;
     return _encoder;
 }
 
-- (void)exportMovieToURL:(NSURL *)url withFileType:(NSString *)fileType size:(CGSize)size fps:(int)fps andData:(NSArray *)array {
+- (void)exportMovieToURL:(NSURL *)url withFileType:(NSString *)fileType size:(CGSize)size fps:(float)fps data:(NSArray *)array {
     // Setup AVAssetWriter
-    AVAssetWriter *writer = [AVAssetWriter assetWriterWithURL:url fileType:fileType error:nil];
+    NSError *error;
+    AVAssetWriter *writer = [AVAssetWriter assetWriterWithURL:url fileType:fileType error:&error];
+    if (error) {
+        NSLog(@"ERROR: %@", error.description);
+        return;
+    }
     NSMutableDictionary *settings = [[NSMutableDictionary dictionary] init];
     [settings setValue:AVVideoCodecJPEG forKey:AVVideoCodecKey];
     [settings setValue:[NSNumber numberWithInt:size.width] forKey:AVVideoWidthKey];
@@ -50,8 +55,8 @@ BOOL _abortFlag = NO;
     
     int __block i = 0;
     _abortFlag = NO;
-    
     [imageInput requestMediaDataWhenReadyOnQueue:dispatchQueue usingBlock:^{
+        float frameDuration = 1.0 / fps;
         while (true && !_abortFlag) {
             if ([imageInput isReadyForMoreMediaData]) {
                 if (i >= array.count) {
@@ -60,13 +65,13 @@ BOOL _abortFlag = NO;
                 ZRImageBrowserItem *item = (ZRImageBrowserItem *)[array objectAtIndex:i];
                 CVPixelBufferRef buffer = [self createImageSampleBufferFromURL:item.url size:size];
                 if (buffer) {
-                    CMTime t = CMTimeMake(i, fps);
+                    CMTime t = CMTimeMakeWithSeconds(i * frameDuration, 90000);
                     if(![adapter appendPixelBuffer:buffer withPresentationTime:t]) {
-                        NSLog(@"Failure");
+                        _abortFlag = YES;
                         break;
                     } else {
                         double progress = 100.0 * i / (int)array.count;
-                        NSLog(@"Success:%d/%d (%f)", i, (int)array.count, progress);
+                        //NSLog(@"Success:%d/%d (%f)", i, (int)array.count, progress);
                         // Notify
                         [[NSNotificationCenter defaultCenter] postNotificationName:@"ProgressUpdate" object:[NSNumber numberWithDouble:progress]];
                         i++;

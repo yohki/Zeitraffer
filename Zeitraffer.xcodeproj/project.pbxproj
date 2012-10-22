@@ -23,6 +23,7 @@
 		407DB579162939170075D935 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 407DB578162939170075D935 /* AVFoundation.framework */; };
 		407DB57C1629399A0075D935 /* ZRMovieEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 407DB57B1629399A0075D935 /* ZRMovieEncoder.m */; };
 		407DB582162A88E60075D935 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 407DB581162A88E60075D935 /* CoreMedia.framework */; };
+		40D41B081634CF5E001C6AAD /* zeitraffer.icns in Resources */ = {isa = PBXBuildFile; fileRef = 40D41B071634CF5E001C6AAD /* zeitraffer.icns */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +37,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		406C9D561634FB8D00F916EB /* Zeitraffer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Zeitraffer.entitlements; sourceTree = "<group>"; };
 		407DB5171627F16F0075D935 /* Zeitraffer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Zeitraffer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		407DB51B1627F16F0075D935 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		407DB51E1627F16F0075D935 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -64,6 +66,7 @@
 		407DB57A1629399A0075D935 /* ZRMovieEncoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZRMovieEncoder.h; sourceTree = "<group>"; };
 		407DB57B1629399A0075D935 /* ZRMovieEncoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZRMovieEncoder.m; sourceTree = "<group>"; };
 		407DB581162A88E60075D935 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		40D41B071634CF5E001C6AAD /* zeitraffer.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = zeitraffer.icns; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +96,7 @@
 		407DB50C1627F16F0075D935 = {
 			isa = PBXGroup;
 			children = (
+				40D41B071634CF5E001C6AAD /* zeitraffer.icns */,
 				407DB5211627F16F0075D935 /* Zeitraffer */,
 				407DB53E1627F16F0075D935 /* ZeitrafferTests */,
 				407DB51A1627F16F0075D935 /* Frameworks */,
@@ -135,6 +139,7 @@
 		407DB5211627F16F0075D935 /* Zeitraffer */ = {
 			isa = PBXGroup;
 			children = (
+				406C9D561634FB8D00F916EB /* Zeitraffer.entitlements */,
 				407DB52D1627F16F0075D935 /* ZRAppDelegate.h */,
 				407DB52E1627F16F0075D935 /* ZRAppDelegate.m */,
 				407DB57A1629399A0075D935 /* ZRMovieEncoder.h */,
@@ -255,6 +260,7 @@
 				407DB5261627F16F0075D935 /* InfoPlist.strings in Resources */,
 				407DB52C1627F16F0075D935 /* Credits.rtf in Resources */,
 				407DB5321627F16F0075D935 /* MainMenu.xib in Resources */,
+				40D41B081634CF5E001C6AAD /* zeitraffer.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -407,6 +413,8 @@
 		407DB54A1627F16F0075D935 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Zeitraffer/Zeitraffer.entitlements;
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Zeitraffer/Zeitraffer-Prefix.pch";
@@ -420,6 +428,8 @@
 		407DB54B1627F16F0075D935 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Zeitraffer/Zeitraffer.entitlements;
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Zeitraffer/Zeitraffer-Prefix.pch";

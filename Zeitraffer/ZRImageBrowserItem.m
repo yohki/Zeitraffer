@@ -11,12 +11,16 @@
 
 @implementation ZRImageBrowserItem
 
+NSDateFormatter *_formatter;
+
 - (id)initWithURL:(NSURL *)url {
     self = [super init];
     if (self) {
         self.url = url;
         NSDictionary *attrs = [[NSFileManager defaultManager] attributesOfItemAtPath:self.url.path error:nil];
         self.date = [attrs objectForKey:NSFileCreationDate];
+        _formatter = [[NSDateFormatter alloc] init];
+        [_formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     }
     return self;
 }
@@ -59,6 +63,6 @@
 }
 
 - (NSString *)imageSubtitle {
-    return self.date.description;
+    return [_formatter stringFromDate:self.date];
 }
 @end

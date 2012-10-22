@@ -12,7 +12,7 @@
 
 + (ZRMovieEncoder *)encoder;
 
-- (void)exportMovieToURL:(NSURL *)url withFileType:(NSString *)fileType size:(CGSize)size fps:(int)fps andData:(NSArray *)array;
+- (void)exportMovieToURL:(NSURL *)url withFileType:(NSString *)fileType size:(CGSize)size fps:(float)fps data:(NSArray *)array;
 
 - (void)abortExport;
 

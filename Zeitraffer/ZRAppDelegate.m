@@ -14,6 +14,8 @@
 
 @implementation ZRAppDelegate
 
+const float kDefaultFPS = 30;
+
 const NSInteger kSortOrderFileNameAscending = 0;
 const NSInteger kSortOrderFileNameDescending = 1;
 const NSInteger kSortOrderDateCreatedAscending = 2;
@@ -58,6 +60,7 @@ BOOL _exportInProgress = NO;
     _outputSize = CGSizeMake(360, 240);
     
     _sortOrder = kSortOrderFileNameAscending;
+    [self.fps setIntValue:kDefaultFPS];
 }
 
 - (NSURL *)selectDirectory {
@@ -81,6 +84,13 @@ BOOL _exportInProgress = NO;
         self.exportButton.title = @"Export...";
         [[ZRMovieEncoder encoder] abortExport];
     } else {
+        // Validate FPS value
+        float fps = [self.fps floatValue];
+        if (fps <= 0) {
+            [self.fps setIntValue:kDefaultFPS];
+            fps = kDefaultFPS;
+        }
+
         NSSavePanel *panel = [NSSavePanel savePanel];
         [panel setTitle:@"Choose the location to save..."];
         [panel setNameFieldStringValue:@"Untitled"];
@@ -92,8 +102,17 @@ BOOL _exportInProgress = NO;
         if (result != NSFileHandlingPanelOKButton) {
             return;
         }
-        int fps = [self.fps intValue];
-        [[ZRMovieEncoder encoder] exportMovieToURL:panel.URL withFileType:_outFileType size:_outputSize fps:fps andData:_imageSource.imageEntries];
+
+        if ([[NSFileManager defaultManager] fileExistsAtPath:panel.URL.path]) {
+            NSError *error;
+            [[NSFileManager defaultManager] removeItemAtURL:panel.URL error:&error];
+            if (error) {
+                NSAlert *alert = [NSAlert alertWithError:error];
+                [alert runModal];
+                return;
+            }
+        }
+        [[ZRMovieEncoder encoder] exportMovieToURL:panel.URL withFileType:_outFileType size:_outputSize fps:fps data:_imageSource.imageEntries];
         self.exportButton.title = @"Cancel";
         _exportInProgress = YES;
     }
@@ -135,7 +154,8 @@ BOOL _exportInProgress = NO;
             [self.status setStringValue:[NSString stringWithFormat:@"Now processing... (%2.0f%%)", [value doubleValue]]];
             
         }
-        NSLog(@"%f", [value doubleValue]);
+        [self.progressBar displayIfNeeded];
+        //NSLog(@"%f", [value doubleValue]);
     });
 }
 
@@ -153,7 +173,11 @@ BOOL _exportInProgress = NO;
         [self sortItems];
         [self.browserView reloadData];
         [self.browserView setSelectionIndexes:[NSIndexSet indexSetWithIndex:0] byExtendingSelection:NO];
-        [self.exportButton setEnabled:YES];
+        if (_imageSource.imageEntries.count == 0) {
+            [self.exportButton setEnabled:NO];
+        } else {
+            [self.exportButton setEnabled:YES];
+        }
         _outputSize.width = self.imageView.imageSize.width;
         _outputSize.height = self.imageView.imageSize.height;
     }
