@@ -26,6 +26,8 @@
 		407DB579162939170075D935 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 407DB578162939170075D935 /* AVFoundation.framework */; };
 		407DB57C1629399A0075D935 /* ZRMovieEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 407DB57B1629399A0075D935 /* ZRMovieEncoder.m */; };
 		407DB582162A88E60075D935 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 407DB581162A88E60075D935 /* CoreMedia.framework */; };
+		409DC179164AA16D0083C092 /* ZRTiltShiftFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 409DC178164AA16D0083C092 /* ZRTiltShiftFilter.m */; };
+		40B5E3C41638A1B200A96299 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40B5E3C31638A1B200A96299 /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,6 +79,9 @@
 		407DB57A1629399A0075D935 /* ZRMovieEncoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZRMovieEncoder.h; sourceTree = "<group>"; };
 		407DB57B1629399A0075D935 /* ZRMovieEncoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZRMovieEncoder.m; sourceTree = "<group>"; };
 		407DB581162A88E60075D935 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		409DC177164AA16D0083C092 /* ZRTiltShiftFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZRTiltShiftFilter.h; sourceTree = "<group>"; };
+		409DC178164AA16D0083C092 /* ZRTiltShiftFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZRTiltShiftFilter.m; sourceTree = "<group>"; };
+		40B5E3C31638A1B200A96299 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +89,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				40B5E3C41638A1B200A96299 /* QuartzCore.framework in Frameworks */,
 				407DB582162A88E60075D935 /* CoreMedia.framework in Frameworks */,
 				407DB579162939170075D935 /* AVFoundation.framework in Frameworks */,
 				407DB5501627F41E0075D935 /* Quartz.framework in Frameworks */,
@@ -129,6 +135,7 @@
 				407DB581162A88E60075D935 /* CoreMedia.framework */,
 				407DB578162939170075D935 /* AVFoundation.framework */,
 				407DB54F1627F41E0075D935 /* Quartz.framework */,
+				40B5E3C31638A1B200A96299 /* QuartzCore.framework */,
 				407DB51B1627F16F0075D935 /* Cocoa.framework */,
 				407DB5391627F16F0075D935 /* SenTestingKit.framework */,
 				407DB51D1627F16F0075D935 /* Other Frameworks */,
@@ -152,12 +159,14 @@
 				406C9D561634FB8D00F916EB /* Zeitraffer.entitlements */,
 				407DB52D1627F16F0075D935 /* ZRAppDelegate.h */,
 				407DB52E1627F16F0075D935 /* ZRAppDelegate.m */,
-				407DB57A1629399A0075D935 /* ZRMovieEncoder.h */,
-				407DB57B1629399A0075D935 /* ZRMovieEncoder.m */,
 				407DB55E1628D6F60075D935 /* ZRImageBrowserDataSource.h */,
 				407DB55F1628D6F60075D935 /* ZRImageBrowserDataSource.m */,
 				407DB5651628E0DB0075D935 /* ZRImageBrowserItem.h */,
 				407DB5661628E0DB0075D935 /* ZRImageBrowserItem.m */,
+				407DB57A1629399A0075D935 /* ZRMovieEncoder.h */,
+				407DB57B1629399A0075D935 /* ZRMovieEncoder.m */,
+				409DC177164AA16D0083C092 /* ZRTiltShiftFilter.h */,
+				409DC178164AA16D0083C092 /* ZRTiltShiftFilter.m */,
 				406C9D6D16355E9500F916EB /* ZRExportSettingsView.xib */,
 				407DB5301627F16F0075D935 /* MainMenu.xib */,
 				407DB5221627F16F0075D935 /* Supporting Files */,
@@ -315,6 +324,7 @@
 				407DB5601628D6F70075D935 /* ZRImageBrowserDataSource.m in Sources */,
 				407DB5671628E0DB0075D935 /* ZRImageBrowserItem.m in Sources */,
 				407DB57C1629399A0075D935 /* ZRMovieEncoder.m in Sources */,
+				409DC179164AA16D0083C092 /* ZRTiltShiftFilter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

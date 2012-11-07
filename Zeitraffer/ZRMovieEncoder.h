@@ -8,12 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
-@interface ZRMovieEncoder : NSObject 
+@interface ZRMovieEncoder : NSObject
 
 + (ZRMovieEncoder *)encoder;
 
 - (void)exportMovieToURL:(NSURL *)url withFileType:(NSString *)fileType size:(CGSize)size fps:(float)fps data:(NSArray *)array;
 
 - (void)abortExport;
+
+@property BOOL tiltShift;
 
 @end

@@ -184,23 +184,25 @@ BOOL _exportInProgress = NO;
 }
 
 - (void)updateProgressBar:(NSNotification *)notification {
-    dispatch_queue_t mainQueue = dispatch_get_main_queue();
-    dispatch_async(mainQueue, ^(void) {
-        NSNumber *value = (NSNumber *)[notification object];
+    NSNumber *value = (NSNumber *)notification.object;
+    dispatch_sync(dispatch_get_main_queue(), ^(void) {
+        // This is a workaround for update progress indicator correctly
+        [self.progressBar setDoubleValue:100];
+        
+        [self.progressBar setDoubleValue:[value doubleValue]];
+        [self.progressBar displayIfNeeded];
+        [self.status setStringValue:[NSString stringWithFormat:NSLocalizedString(@"MessageProgress", @"Message in progress"), [value doubleValue]]];
+        //NSLog(@"%5.2f", self.progressBar.doubleValue);
+        
         if ([value isEqualToNumber:[NSNumber numberWithDouble:100]]) {
             [self.progressBar setDoubleValue:0];
+            [self.progressBar displayIfNeeded];
             [self.status setStringValue:NSLocalizedString(@"MessageDone", @"Message when done")];
             self.exportButton.title = NSLocalizedString(@"ExportButtonLabel", nil);
             [self.picker setEnabled:YES];
             [self.orderPopup setEnabled:YES];
             _exportInProgress = NO;
-        } else {
-            [self.progressBar setDoubleValue:[value doubleValue]];
-            [self.status setStringValue:[NSString stringWithFormat:NSLocalizedString(@"MessageProgress", @"Message in progress"), [value doubleValue]]];
-            
         }
-        [self.progressBar displayIfNeeded];
-        //NSLog(@"%f", [value doubleValue]);
     });
 }
 

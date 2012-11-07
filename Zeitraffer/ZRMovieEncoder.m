@@ -10,6 +10,7 @@
 #import <CoreVideo/CVPixelBuffer.h>
 #import "ZRMovieEncoder.h"
 #import "ZRImageBrowserItem.h"
+#import "ZRTiltShiftFilter.h"
 
 @implementation ZRMovieEncoder
 
@@ -22,6 +23,14 @@ BOOL _abortFlag = NO;
         _encoder = [[ZRMovieEncoder alloc] init];
     });
     return _encoder;
+}
+
+- (id)init {
+    self = [super init];
+    if (self) {
+        self.tiltShift = NO;
+    }
+    return self;
 }
 
 - (void)exportMovieToURL:(NSURL *)url withFileType:(NSString *)fileType size:(CGSize)size fps:(float)fps data:(NSArray *)array {
@@ -84,9 +93,9 @@ BOOL _abortFlag = NO;
         [writer finishWriting];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"ProgressUpdate" object:[NSNumber numberWithDouble:100]];
         if (_abortFlag) {
-            NSLog(@"Canceled.");
+            //NSLog(@"Canceled.");
         } else {
-            NSLog(@"Done.");
+            //NSLog(@"Done.");
         }
     }];
 }
@@ -113,15 +122,22 @@ BOOL _abortFlag = NO;
     CGContextRef context = CGBitmapContextCreate(pxdata, size.width, size.height, 8, 4*size.width, rgbColorSpace, kCGImageAlphaPremultipliedFirst);
     NSParameterAssert(context);
     
-    CGImageSourceRef imgSrc = CGImageSourceCreateWithURL((__bridge CFURLRef)url, NULL);
-    // Create an image from image source
-    CGImageRef image = CGImageSourceCreateImageAtIndex(imgSrc, 0, NULL);
-    CGContextDrawImage(context, CGRectMake(0, 0, size.width, size.height), image);
-    
+    CIImage *ciImage = [[CIImage alloc] initWithContentsOfURL:url];
+    CIContext *ciContext = [CIContext contextWithCGContext:context options:nil];
+    if (self.tiltShift) {
+        // Apply Tilt Shift Filter //
+        ZRTiltShiftFilter *filter = [[ZRTiltShiftFilter alloc] init];
+        filter.inputImage = ciImage;
+        CIImage *ciOutImage = filter.outputimage;
+        [ciContext drawImage:ciOutImage inRect:CGRectMake(0, 0, size.width, size.height) fromRect:ciImage.extent];
+    } else {
+        [ciContext drawImage:ciImage inRect:CGRectMake(0, 0, size.width, size.height) fromRect:ciImage.extent];
+    }
+
     CGColorSpaceRelease(rgbColorSpace);
     CGContextRelease(context);
-    CGImageRelease(image);
     CVPixelBufferUnlockBaseAddress(pxbuffer, 0);
     return pxbuffer;
 }
+
 @end
