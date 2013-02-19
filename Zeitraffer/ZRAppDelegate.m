@@ -153,6 +153,11 @@ BOOL _exportInProgress = NO;
             }
         }
         
+        // Start progress
+        [self.status setStringValue:NSLocalizedString(@"MessageProgressNoDetail", @"Message in progress")];
+        [self.progressBar setIndeterminate:YES];
+        [self.progressBar startAnimation:nil];
+
         [[ZRMovieEncoder encoder] exportMovieToURL:_savePanel.URL withFileType:_outFileType size:_outputSize fps:fps data:_imageSource.imageEntries];
         self.exportButton.title = NSLocalizedString(@"CancelButtonLabel", @"Label for cancel button");
         [self.picker setEnabled:NO];
@@ -186,6 +191,9 @@ BOOL _exportInProgress = NO;
 - (void)updateProgressBar:(NSNotification *)notification {
     NSNumber *value = (NSNumber *)notification.object;
     dispatch_sync(dispatch_get_main_queue(), ^(void) {
+        if ([self.progressBar isIndeterminate]) {
+            [self.progressBar setIndeterminate:NO];
+        }
         // This is a workaround for update progress indicator correctly
         [self.progressBar setDoubleValue:100];
         

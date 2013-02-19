@@ -11,12 +11,32 @@
 
 @implementation ZRImageBrowserDataSource
 
+NSArray *_exts = nil;
+
 - (id)init
 {
     self = [super init];
     if (self) {
         _imageEntries = [NSMutableArray array];
         _path = nil;
+        _exts = @[
+                 @"tiff",
+                 @"tif",
+                 @"jpg",
+                 @"jpeg",
+                 @"png",
+                 @"bmp",
+                 @"dng",  // Adobe
+                 @"cr2",  // Canon 2
+                 @"crw",  // Canon
+                 @"raf",  // Fuji
+                 @"dcr",  // Kodak
+                 @"mrw",  // Minolta
+                 @"nef",  // Nikon
+                 @"orf",  // Olympus
+                 @"srf",  // Sony
+        ];
+
     }
     return self;
 }
@@ -50,9 +70,13 @@
 }
 
 - (void)addAnImageWithURL:(NSURL *)url {
-    if ([[url.pathExtension lowercaseString] isEqualToString:@"jpg"]) {
-        ZRImageBrowserItem *item = [[ZRImageBrowserItem alloc] initWithURL:url];
-        [_imageEntries addObject:item];
+    NSString *ext = [url.pathExtension lowercaseString];
+    for (NSString *ex in _exts) {
+        if ([ext isEqualToString:ex]) {
+            ZRImageBrowserItem *item = [[ZRImageBrowserItem alloc] initWithURL:url];
+            [_imageEntries addObject:item];
+            break;
+        }
     }
 }
 

@@ -118,8 +118,9 @@ BOOL _abortFlag = NO;
     void *pxdata = CVPixelBufferGetBaseAddress(pxbuffer);
     NSParameterAssert(pxdata != NULL);
     
+    size_t bpr = CVPixelBufferGetBytesPerRow(pxbuffer);
     CGColorSpaceRef rgbColorSpace = CGColorSpaceCreateDeviceRGB();
-    CGContextRef context = CGBitmapContextCreate(pxdata, size.width, size.height, 8, 4*size.width, rgbColorSpace, kCGImageAlphaPremultipliedFirst);
+    CGContextRef context = CGBitmapContextCreate(pxdata, size.width, size.height, 8, bpr, rgbColorSpace, kCGImageAlphaPremultipliedFirst);
     NSParameterAssert(context);
     
     CIImage *ciImage = [[CIImage alloc] initWithContentsOfURL:url];
